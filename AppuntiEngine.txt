@@ -1,0 +1,37 @@
+Why does cherno want to use a dll?
+The Engine and everything will be linked into the game.
+the game will depend onto a big single dll file
+so the engine as a service for the game lets say.
+
+SO:
+- link everything into the dll of the engine
+- then link engine dll into the game.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+When you create the app project (Sandbox):
+Add -> R eference and put the engine as refernce.
+It means that THE engine will be linked into the sandbox app.
+
+""""""""""""""""""""""""""""""""""""""""""""
+LESSON 2
+We discuss trhe entry point
+
+we need to start somewhere! :) this is the point
+
+also, the engine here is a dll
+
+when the app loads/unloads the dll, we have some starting point
+
+the gengine is a realtime app engine. but it can do more, somehbow, so
+were going to provide a way for the gengine apps toi provide their own entry point.
+
+we want the main to be taken control from the engine side.
+
+we need to define an app inside sandbox
+in quesdto vedi che ue5 fa diversamente :)
+
+
+virtual ~Application();
+
+ricorda la virtual app destructor. because the app is subclassed in sandbox
+
