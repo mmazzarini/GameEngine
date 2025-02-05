@@ -3,6 +3,7 @@
 .vs/
 bin-int/
 bin/
+AppuntiVari/
 
 # Files
 *.user
