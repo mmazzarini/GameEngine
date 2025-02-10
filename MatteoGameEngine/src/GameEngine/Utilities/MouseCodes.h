@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MatteoGameEngine {
+namespace MGEngine {
 
 	using MouseCode = unsigned short;
 

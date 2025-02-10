@@ -1,9 +1,8 @@
 #pragma once
 
 #include "GameEngine/Events/Event.h"
-#include <sstream>
 
-namespace MatteoGameEngine {
+namespace MGEngine {
 
 	class MATTEO_GENGINE_API WindowClosedEvent : public Event
 	{

@@ -4,6 +4,7 @@
 bin-int/
 bin/
 AppuntiVari/
+MatteoGameEngine/vendor/
 
 # Files
 *.user

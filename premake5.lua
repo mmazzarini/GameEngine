@@ -10,6 +10,15 @@ workspace "MatteoGameEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Begin GLFW Includes:
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "MatteoGameEngine/vendor/GLFW/include"
+-- "include" refers to the include path used to load the GLFW-premake5 file.  
+-- This will paste the whole glfw-premake5 and will copy the definition of the glfw project.
+include "MatteoGameEngine/vendor/GLFW"
+-- End GLFW Includes
+
 project "MatteoGameEngine"
     location "MatteoGameEngine"
     kind "SharedLib"
@@ -17,6 +26,9 @@ project "MatteoGameEngine"
 
     targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    pchheader "GenginePCH.h"
+    pchsource "MatteoGameEngine/src/GenginePCH.cpp"
 
     files
     {
@@ -27,7 +39,16 @@ project "MatteoGameEngine"
     includedirs 
     {
         "%{prj.name}/vendor/spdlog/include",
-        "%{prj.name}/src"
+        "%{prj.name}/src",
+        -- Adding glfw includes
+        "%{IncludeDir.GLFW}"
+    }
+
+    -- Adding links for GLFW usage
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"

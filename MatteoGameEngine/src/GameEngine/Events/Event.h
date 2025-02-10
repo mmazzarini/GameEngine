@@ -2,11 +2,7 @@
 
 #include "GameEngine/Core.h"
 
-#include <functional>
-#include <string>
-#include <sstream>
-
-namespace MatteoGameEngine {
+namespace MGEngine {
 
 	//Defining events here. These are objects that are handled immediately, i.e, they are processed in a blocking way.
 

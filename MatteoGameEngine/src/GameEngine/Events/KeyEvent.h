@@ -3,7 +3,7 @@
 #include "GameEngine/Events/Event.h"
 #include "GameEngine/Utilities/KeyCodes.h"
 
-namespace MatteoGameEngine {
+namespace MGEngine {
 
 	class MATTEO_GENGINE_API KeyEvent : public Event
 	{

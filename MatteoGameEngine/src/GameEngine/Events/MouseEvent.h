@@ -3,7 +3,7 @@
 #include "GameEngine/Events/Event.h"
 #include "GameEngine/Utilities/MouseCodes.h"
 
-namespace MatteoGameEngine {
+namespace MGEngine {
 
 	//Judging from the cherno's code:
 	//https://github.com/TheCherno/Hazel/blob/master/Hazel/src/Hazel/Events/MouseEvent.h

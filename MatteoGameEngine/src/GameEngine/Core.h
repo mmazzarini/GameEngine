@@ -10,4 +10,13 @@
 	#error MatteoGameEngine Only Supports Windows
 #endif
 
+#ifdef MATTEO_GENGINE_ENABLE_ASSERTS
+	#define MGENGINE_ASSERT(x, ...) {if(!(x)) {MGENGINE_ERROR("Assertion failed: {0}!", __VA_ARGS__); __debugbreak(); } }
+	#define MGENGINE_CORE_ASSERT(x, ...) {if(!(x)) {MGENGINE_CORE_ERROR("Assertion failed: {0}!", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define MGENGINE_ASSERT(x, ...)
+	#define MGENGINE_CORE_ASSERT(x, ...)
+#endif
+
 #define BIT(x) (1 << x)
+
