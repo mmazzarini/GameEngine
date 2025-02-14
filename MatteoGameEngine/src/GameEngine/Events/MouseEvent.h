@@ -43,7 +43,7 @@ namespace MGEngine {
 
 	public:
 
-		KeyCode GetKeyCode() const { return MouseButtonValue; }
+		MouseCode GetKeyCode() const { return MouseButtonValue; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouseButton);
 

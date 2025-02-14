@@ -5,6 +5,8 @@
 
 namespace MGEngine {
 
+	class WindowClosedEvent;
+
 	class MATTEO_GENGINE_API Application
 	{
 	public:
@@ -15,7 +17,12 @@ namespace MGEngine {
 
 		void Run();
 
+		void OnEvent(Event& InEvent);
+
 	private: 
+
+		bool OnWindowClose(WindowClosedEvent& InCloseEvent);
+
 		std::unique_ptr<Window> AppWindow;
 		bool bRunning = true;
 	};

@@ -78,6 +78,9 @@ namespace MGEngine {
 	//Class representing the entity that dispatches events
 	class EventDispatcher
 	{
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+
 	public:
 
 		EventDispatcher(Event& InEvent)
@@ -86,12 +89,13 @@ namespace MGEngine {
 		}
 
 		//templated function to describe the dispatch of an event
-		template<typename T, typename F>
-		bool Dispatch(const F& Func)
+		template<typename T>
+		bool Dispatch(EventFn<T> Func)
 		{
 			if (HandledEvent.GetEventType() == T::GetStaticType())
 			{
-				HandledEvent.Handled |= Func(static_cast<T&>(HandledEvent));
+				HandledEvent.Handled = Func(*(T*)&HandledEvent);
+				return true;
 			}
 			//Default return
 			return false;
