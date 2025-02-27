@@ -1,10 +1,13 @@
 #include "GenginePCH.H"
 
 #include "GameEngine/Platform/Windows/WindowsWindow.h"
+
 #include "GameEngine/Events/ApplicationEvent.h"
 #include "GameEngine/Events/MouseEvent.h"
 #include "GameEngine/Events/KeyEvent.h"
 #include "GameEngine/Log.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace MGEngine
 {
@@ -92,6 +95,10 @@ namespace MGEngine
 
 		InnerWindow = glfwCreateWindow((int)InProperties.Width, (int)InProperties.Height, InProperties.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(InnerWindow);
+
+		//Initialize Glad
+		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		MGENGINE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(InnerWindow, &InnerData);
 		SetVSync(true);
 

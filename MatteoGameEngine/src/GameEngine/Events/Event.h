@@ -69,8 +69,6 @@ namespace MGEngine {
 			return GetCategoryFlags() & InCategory;
 		}
 
-	protected:
-
 		bool Handled = false;
 
 	};

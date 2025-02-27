@@ -7,6 +7,9 @@
     <Filter Include="GameEngine\Events">
       <UniqueIdentifier>{193A4684-8550-441A-CEC7-CF3B3A1D15A2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Layers">
+      <UniqueIdentifier>{F4242993-603B-2729-A9B2-B24A1508F8B0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameEngine\Platform">
       <UniqueIdentifier>{C92BDBCA-358D-B8D8-BEFA-FE8A2A5BEF97}</UniqueIdentifier>
     </Filter>
@@ -39,6 +42,12 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>GameEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Layers\Layer.h">
+      <Filter>GameEngine\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Layers\LayersStack.h">
+      <Filter>GameEngine\Layers</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
@@ -60,6 +69,12 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Layers\Layer.cpp">
+      <Filter>GameEngine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Layers\LayersStack.cpp">
+      <Filter>GameEngine\Layers</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>GameEngine</Filter>

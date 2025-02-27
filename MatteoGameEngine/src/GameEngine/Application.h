@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "GameEngine/Layers/LayersStack.h"
 
 namespace MGEngine {
 
@@ -19,12 +20,21 @@ namespace MGEngine {
 
 		void OnEvent(Event& InEvent);
 
+		void PushLayer(Layer* InLayer);
+
+		void PushOverlay(Layer* InLayer);
+
 	private: 
 
 		bool OnWindowClose(WindowClosedEvent& InCloseEvent);
 
+		void OnUpdateLayers();
+
 		std::unique_ptr<Window> AppWindow;
+	
 		bool bRunning = true;
+	
+		LayersStack LayerStack;
 	};
 		
 	//To be defined inside client
