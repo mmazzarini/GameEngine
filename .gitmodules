@@ -4,3 +4,6 @@
 [submodule "MatteoGameEngine/vendor/GLFW"]
 	path = MatteoGameEngine/vendor/GLFW
 	url = https://github.com/mmazzarini/glfw
+[submodule "MatteoGameEngine/vendor/imgui"]
+	path = MatteoGameEngine/vendor/imgui
+	url = https://github.com/mmazzarini/imgui

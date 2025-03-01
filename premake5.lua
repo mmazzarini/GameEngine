@@ -16,10 +16,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "MatteoGameEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "MatteoGameEngine/vendor/Glad/include"
+IncludeDir["ImGui"] = "MatteoGameEngine/vendor/imgui"
 -- "include" refers to the include path used to load the GLFW-premake5 file.  
 -- This will paste the whole glfw-premake5 and will copy the definition of the glfw project.
 include "MatteoGameEngine/vendor/GLFW"
 include "MatteoGameEngine/vendor/Glad"
+include "MatteoGameEngine/vendor/imgui"
 -- End GLFW Includes - and additional includes
 
 project "MatteoGameEngine"
@@ -45,7 +47,8 @@ project "MatteoGameEngine"
         "%{prj.name}/src",
         -- Adding glfw includes - and additional includes
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     -- Adding links for GLFW usage
@@ -53,6 +56,7 @@ project "MatteoGameEngine"
     {
         "GLFW",
         "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 

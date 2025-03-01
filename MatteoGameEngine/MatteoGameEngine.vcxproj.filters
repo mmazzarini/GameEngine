@@ -10,8 +10,14 @@
     <Filter Include="GameEngine\Layers">
       <UniqueIdentifier>{F4242993-603B-2729-A9B2-B24A1508F8B0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Layers\ImGui">
+      <UniqueIdentifier>{1E81FE8F-8AB8-4627-93C2-AA4AFF786D20}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameEngine\Platform">
       <UniqueIdentifier>{C92BDBCA-358D-B8D8-BEFA-FE8A2A5BEF97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Platform\OpenGL">
+      <UniqueIdentifier>{DD984917-C9A8-F5E7-3262-5A061E91E480}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameEngine\Platform\Windows">
       <UniqueIdentifier>{038F9858-6F9C-C63E-F882-C229648F92F5}</UniqueIdentifier>
@@ -42,6 +48,9 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>GameEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Layers\ImGui\ImGuiLayer.h">
+      <Filter>GameEngine\Layers\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Layers\Layer.h">
       <Filter>GameEngine\Layers</Filter>
     </ClInclude>
@@ -50,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>GameEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Platform\OpenGL\imgui_impl_opengl3_loader.h">
+      <Filter>GameEngine\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Platform\Windows\WindowsWindow.h">
       <Filter>GameEngine\Platform\Windows</Filter>
@@ -70,6 +85,9 @@
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Layers\ImGui\ImGuiLayer.cpp">
+      <Filter>GameEngine\Layers\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\Layers\Layer.cpp">
       <Filter>GameEngine\Layers</Filter>
     </ClCompile>
@@ -78,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>GameEngine\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>GameEngine\Platform\Windows</Filter>
