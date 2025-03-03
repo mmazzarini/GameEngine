@@ -13,6 +13,9 @@
     <Filter Include="GameEngine\Layers\ImGui">
       <UniqueIdentifier>{1E81FE8F-8AB8-4627-93C2-AA4AFF786D20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Layers\ImGui\GLFW">
+      <UniqueIdentifier>{1D9FAC71-095A-9C1D-B211-15689EABE6AD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameEngine\Platform">
       <UniqueIdentifier>{C92BDBCA-358D-B8D8-BEFA-FE8A2A5BEF97}</UniqueIdentifier>
     </Filter>
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>GameEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Layers\ImGui\GLFW\ImGuiGLFWImplementation.h">
+      <Filter>GameEngine\Layers\ImGui\GLFW</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Layers\ImGui\ImGuiLayer.h">
       <Filter>GameEngine\Layers\ImGui</Filter>
@@ -84,6 +90,9 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Layers\ImGui\GLFW\ImGuiGLFWImplementation.cpp">
+      <Filter>GameEngine\Layers\ImGui\GLFW</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Layers\ImGui\ImGuiLayer.cpp">
       <Filter>GameEngine\Layers\ImGui</Filter>

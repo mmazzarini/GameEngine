@@ -16,7 +16,7 @@ namespace MGEngine
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
-		virtual void OnEvent(const Event& InEvent) {}
+		virtual void OnEvent(Event& InEvent) {}
 
 		inline const std::string& GetName();
 

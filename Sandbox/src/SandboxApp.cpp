@@ -14,7 +14,7 @@ public:
 		//MGENGINE_INFO("Example layer::Update");
 	}
 
-	void OnEvent(const MGEngine::Event& InEvent) override
+	void OnEvent(MGEngine::Event& InEvent) override
 	{
 		MGENGINE_INFO("{0}", InEvent.ToString());
 	}
@@ -27,6 +27,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new MGEngine::ImGuiLayer());
 	}
 
 	~Sandbox()

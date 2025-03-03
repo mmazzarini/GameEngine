@@ -35,7 +35,7 @@ namespace MGEngine {
 			return Sstream.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyPressed);
+		EVENT_CLASS_TYPE(WindowResize);
 
 		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 

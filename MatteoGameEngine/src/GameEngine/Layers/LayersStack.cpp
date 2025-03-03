@@ -20,11 +20,13 @@ namespace MGEngine
 	void LayersStack::PushLayer(Layer* InLayer)
 	{
 		LayersIt = Layers.emplace(LayersIt, InLayer);
+		InLayer->OnAttach();
 	}
 
 	void LayersStack::PushOverlay(Layer* InOverlay)
 	{
 		Layers.emplace_back(InOverlay);
+		InOverlay->OnAttach();
 	}
 
 	void LayersStack::PopLayer(Layer* InLayer)

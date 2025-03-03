@@ -74,6 +74,11 @@ namespace MGEngine
 		glfwPollEvents();
 		glfwSwapBuffers(InnerWindow);
 	}
+
+	GLFWwindow* WindowsWindow::GetInnerWindow() const
+	{
+		return InnerWindow;
+	}
 	
 	void WindowsWindow::Init(const WindowProps& InProperties)
 	{
@@ -196,6 +201,14 @@ namespace MGEngine
 
 				MouseMovedEvent MouseMoveEvent((float)InX, (float)InY);
 				WData.EventCallback(MouseMoveEvent);
+			});
+
+		glfwSetCharCallback(InnerWindow, [](GLFWwindow* InWindow, unsigned int InKeyCode)
+			{
+				WindowData& WData = *(WindowData*)glfwGetWindowUserPointer(InWindow);
+
+				KeyTypedEvent KeyTypedEvent(InKeyCode);
+				WData.EventCallback(KeyTypedEvent);
 			});
 	}
 

@@ -16,6 +16,8 @@ namespace MGEngine {
 		
 		virtual ~Application();
 
+		static Application* GetApplication();
+
 		void Run();
 
 		void OnEvent(Event& InEvent);
@@ -23,6 +25,8 @@ namespace MGEngine {
 		void PushLayer(Layer* InLayer);
 
 		void PushOverlay(Layer* InLayer);
+
+		inline Window& GetWindow();
 
 	private: 
 
@@ -35,6 +39,9 @@ namespace MGEngine {
 		bool bRunning = true;
 	
 		LayersStack LayerStack;
+
+		//Singleton ref to Application
+		static Application* SingletonAppInstance;
 	};
 		
 	//To be defined inside client

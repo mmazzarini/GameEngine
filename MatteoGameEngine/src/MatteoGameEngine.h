@@ -4,6 +4,7 @@
 
 #include "GameEngine/Application.h"
 #include "GameEngine/Layers/Layer.h"
+#include "GameEngine/Layers/ImGui/ImGuiLayer.h"
 #include "GameEngine/Log.h"
 
 //------------ ENTRY POINT ----------------

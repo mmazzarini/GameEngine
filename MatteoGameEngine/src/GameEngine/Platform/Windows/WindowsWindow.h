@@ -22,6 +22,8 @@ namespace  MGEngine
 
 		void OnUpdate() override;
 
+		GLFWwindow* GetInnerWindow() const;
+
 	private:
 
 		virtual void Init(const WindowProps& InProperties);

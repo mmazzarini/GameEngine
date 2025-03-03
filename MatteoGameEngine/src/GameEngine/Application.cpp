@@ -10,8 +10,12 @@
 
 namespace MGEngine {
 
+	Application* Application::SingletonAppInstance = nullptr;
+
 	Application::Application()
 	{
+		MGENGINE_CORE_ASSERT(SingletonAppInstance == nullptr, "Watch out! App already exists. Are you trying to create another app instance?")
+		SingletonAppInstance = this;
 		//We got unique ptr, so we dont have to manually handle AppWindow deletion when app terminates.
 		AppWindow = std::unique_ptr<Window>(Window::Create());
 		AppWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
@@ -23,6 +27,12 @@ namespace MGEngine {
 
 	Application::~Application()
 	{
+	}
+
+	Application* Application::GetApplication()
+	{
+		MGENGINE_CORE_ASSERT(SingletonAppInstance != nullptr, "Trying to get a non-existing reference to Application!!");
+		return SingletonAppInstance;
 	}
 
 	void Application::Run()
@@ -82,6 +92,11 @@ namespace MGEngine {
 	void Application::PushOverlay(Layer* InLayer)
 	{
 		LayerStack.PushOverlay(InLayer);
+	}
+
+	inline Window& Application::GetWindow()
+	{
+		return *AppWindow;
 	}
 
 	bool Application::OnWindowClose(WindowClosedEvent& InCloseEvent)
