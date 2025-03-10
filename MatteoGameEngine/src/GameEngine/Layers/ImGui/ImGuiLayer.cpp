@@ -36,27 +36,6 @@ namespace MGEngine {
 		Io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		Io.BackendFlags != ImGuiBackendFlags_HasSetMousePos;
 
-		bool PressedKeyBools[2] = { false, true };
-		for (bool bPressed : PressedKeyBools)
-		{
-			Io.AddKeyEvent(ImGuiKey_Tab, bPressed);
-			Io.AddKeyEvent(ImGuiKey_LeftArrow, bPressed);
-			Io.AddKeyEvent(ImGuiKey_RightArrow, bPressed);
-			Io.AddKeyEvent(ImGuiKey_UpArrow, bPressed);
-			Io.AddKeyEvent(ImGuiKey_DownArrow, bPressed);
-			Io.AddKeyEvent(ImGuiKey_PageUp, bPressed);
-			Io.AddKeyEvent(ImGuiKey_PageDown, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Home, bPressed);
-			Io.AddKeyEvent(ImGuiKey_End, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Insert, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Delete, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Backspace, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Space, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Enter, bPressed);
-			Io.AddKeyEvent(ImGuiKey_Escape, bPressed);
-
-		}
-
 		//initialize opengl3 version
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
@@ -171,11 +150,13 @@ namespace MGEngine {
 
 	bool ImGuiLayer::OnKeyTyped(KeyTypedEvent& InEvent)
 	{
-		ImGuiIO& io = ImGui::GetIO();
+		ImGuiIO& Io = ImGui::GetIO();
 		int KeyCode = InEvent.GetKeyCode();
 		if (KeyCode > 0 && KeyCode < 0x10000)
 		{
-			io.AddInputCharacter(InEvent.GetKeyCode());
+			//Io.AddInputCharacter(static_cast<unsigned short>(KeyCode));
+			char Char[2] = { static_cast<char>(KeyCode), 0 };
+			Io.AddInputCharactersUTF8(Char);
 		}
 		MGENGINE_CORE_INFO("ImGuiLayer: called key typed event on: {0}!", static_cast<unsigned short>(InEvent.GetKeyCode()));
 
