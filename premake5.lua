@@ -24,11 +24,13 @@ include "MatteoGameEngine/vendor/Glad"
 include "MatteoGameEngine/vendor/imgui"
 -- End GLFW Includes - and additional includes
 
+startproject "Sandbox"
+
 project "MatteoGameEngine"
     location "MatteoGameEngine"
     kind "SharedLib"
     language "C++"
-
+    staticruntime "off"
     targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -62,7 +64,6 @@ project "MatteoGameEngine"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
         buildoptions "/utf-8"
     
@@ -80,24 +81,24 @@ project "MatteoGameEngine"
 
     filter "configurations:Debug"
         defines "MATTEO_GENGINE_DEBUG"
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "MATTEO_GENGINE_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "MATTEO_GENGINE_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-       
+    staticruntime "off"
     targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -120,7 +121,6 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
         buildoptions "/utf-8"
 
@@ -131,16 +131,16 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "MATTEO_GENGINE_DEBUG"
-        buildoptions "/MDd"
+        runtime "Debug"
         symbols "On"
  
     filter "configurations:Release"
         defines "MATTEO_GENGINE_RELEASE"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
  
     filter "configurations:Dist"
         defines "MATTEO_GENGINE_DIST"
-        buildoptions "/MD"
+        runtime "Release"
         optimize "On"
  
