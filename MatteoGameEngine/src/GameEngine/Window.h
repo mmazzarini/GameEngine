@@ -46,6 +46,8 @@ namespace MGEngine
 		virtual void SetVSync(bool bInEnabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+ 
 		//This is to be implemented per platform
 		//E.g. return a WindowsWindow or a MacWindow depending on the platform you are
 		static Window* Create(const WindowProps& InProperties = WindowProps());

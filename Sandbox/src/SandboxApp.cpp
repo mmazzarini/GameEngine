@@ -11,12 +11,21 @@ public:
 
 	void OnUpdate() override
 	{
-		//MGENGINE_INFO("Example layer::Update");
+		if (MGEngine::Input::IsKeyPressed(MGENGINE_KEY_TAB))
+		{
+			MGENGINE_TRACE("Tab key is pressed!");
+		}
+
 	}
 
 	void OnEvent(MGEngine::Event& InEvent) override
 	{
-		MGENGINE_INFO("{0}", InEvent.ToString());
+		//MGENGINE_INFO("{0}", InEvent.ToString());
+		if (InEvent.GetEventType() == MGEngine::EventType::KeyPressed)
+		{
+			MGEngine::KeyPressedEvent& Ev = static_cast<MGEngine::KeyPressedEvent&>(InEvent);
+			MGENGINE_TRACE("{0}", static_cast<char>(Ev.GetKeyCode()));
+		}
 	}
 };
 
@@ -26,6 +35,7 @@ public:
 
 	Sandbox()
 	{
+		//In the sandbox app: at ctor time we add the layers we need on our LayerStack.
 		PushLayer(new ExampleLayer());
 		PushOverlay(new MGEngine::ImGuiLayer());
 	}

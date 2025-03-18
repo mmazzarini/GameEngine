@@ -29,10 +29,10 @@ namespace MGEngine {
 	{
 	}
 
-	Application* Application::GetApplication()
+	Application& Application::GetApplication()
 	{
 		MGENGINE_CORE_ASSERT(SingletonAppInstance != nullptr, "Trying to get a non-existing reference to Application!!");
-		return SingletonAppInstance;
+		return *SingletonAppInstance;
 	}
 
 	void Application::Run()
@@ -53,6 +53,10 @@ namespace MGEngine {
 				glClear(GL_COLOR_BUFFER_BIT);
 				
 				OnUpdateLayers();
+
+				//Debug: let's test Input Polling
+				//auto [x, y] = Input::GetMousePosition();
+				//MGENGINE_CORE_TRACE("{0}, {1}", x, y);
 
 				AppWindow->OnUpdate();
 

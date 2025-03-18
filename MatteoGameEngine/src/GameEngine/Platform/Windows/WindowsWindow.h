@@ -22,7 +22,7 @@ namespace  MGEngine
 
 		void OnUpdate() override;
 
-		GLFWwindow* GetInnerWindow() const;
+		virtual void* GetNativeWindow() const override;
 
 	private:
 

@@ -25,6 +25,9 @@
     <Filter Include="GameEngine\Platform\Windows">
       <UniqueIdentifier>{038F9858-6F9C-C63E-F882-C229648F92F5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Platform\Windows\Input">
+      <UniqueIdentifier>{4235808C-AEA3-D50B-F78C-900B633ACBA7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameEngine\Utilities">
       <UniqueIdentifier>{80021F24-6C91-A8ED-15B0-BCE8011EB993}</UniqueIdentifier>
     </Filter>
@@ -51,6 +54,9 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>GameEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Input.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Layers\ImGui\GLFW\ImGuiGLFWImplementation.h">
       <Filter>GameEngine\Layers\ImGui\GLFW</Filter>
     </ClInclude>
@@ -72,6 +78,9 @@
     <ClInclude Include="src\GameEngine\Platform\OpenGL\imgui_impl_opengl3_loader.h">
       <Filter>GameEngine\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Platform\Windows\Input\WindowsInput.h">
+      <Filter>GameEngine\Platform\Windows\Input</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Platform\Windows\WindowsWindow.h">
       <Filter>GameEngine\Platform\Windows</Filter>
     </ClInclude>
@@ -86,6 +95,8 @@
     </ClInclude>
     <ClInclude Include="src\GenginePCH.h" />
     <ClInclude Include="src\MatteoGameEngine.h" />
+    <ClInclude Include="src\GameEngine\Utilities\MGEngineKeyCodes.h" />
+    <ClInclude Include="src\GameEngine\Utilities\MGEngineMouseCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -108,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="src\GameEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>GameEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Platform\Windows\Input\WindowsInput.cpp">
+      <Filter>GameEngine\Platform\Windows\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>GameEngine\Platform\Windows</Filter>

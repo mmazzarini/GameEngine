@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "Input.h"
 #include "GameEngine/Layers/LayersStack.h"
 
 namespace MGEngine {
@@ -16,7 +17,7 @@ namespace MGEngine {
 		
 		virtual ~Application();
 
-		static Application* GetApplication();
+		static Application& GetApplication();
 
 		void Run();
 

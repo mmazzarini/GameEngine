@@ -75,11 +75,11 @@ namespace MGEngine
 		glfwSwapBuffers(InnerWindow);
 	}
 
-	GLFWwindow* WindowsWindow::GetInnerWindow() const
+	void* WindowsWindow::GetNativeWindow() const
 	{
 		return InnerWindow;
 	}
-	
+
 	void WindowsWindow::Init(const WindowProps& InProperties)
 	{
 		//We can create multiple windows but we initialize GLFW only once
@@ -103,7 +103,7 @@ namespace MGEngine
 
 		//Initialize Glad
 		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		MGENGINE_ASSERT(status, "Failed to initialize Glad!");
+		MGENGINE_ASSERT(Status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(InnerWindow, &InnerData);
 		SetVSync(true);
 

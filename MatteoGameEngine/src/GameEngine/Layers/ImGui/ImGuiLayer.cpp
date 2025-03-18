@@ -48,8 +48,9 @@ namespace MGEngine {
 	{
 		//Setup IO
 		ImGuiIO& Io = ImGui::GetIO();
-		Application* App = Application::GetApplication();
-		Io.DisplaySize = ImVec2(App->GetWindow().GetWidth(), App->GetWindow().GetHeight());
+		Application& App = Application::GetApplication();
+		Window& AppWindow = App.GetWindow();
+		Io.DisplaySize = ImVec2(AppWindow.GetWidth(), AppWindow.GetHeight());
 
 		//Update times
 		float PreviousTime = 0.f;
@@ -160,7 +161,7 @@ namespace MGEngine {
 		}
 		MGENGINE_CORE_INFO("ImGuiLayer: called key typed event on: {0}!", static_cast<unsigned short>(InEvent.GetKeyCode()));
 
-		return false;
+		return false;                                                                                                                                         
 	}
 
 	bool ImGuiLayer::OnWindowResized(WindowResizeEvent& InEvent)

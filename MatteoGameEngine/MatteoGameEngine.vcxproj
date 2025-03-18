@@ -95,7 +95,7 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,7 +123,7 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -151,7 +151,7 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\MatteoGameEngine\MatteoGameEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -162,6 +162,7 @@
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
+    <ClInclude Include="src\GameEngine\Input.h" />
     <ClInclude Include="src\GameEngine\Layers\ImGui\GLFW\ImGuiGLFWImplementation.h" />
     <ClInclude Include="src\GameEngine\Layers\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\GameEngine\Layers\Layer.h" />
@@ -169,8 +170,11 @@
     <ClInclude Include="src\GameEngine\Log.h" />
     <ClInclude Include="src\GameEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\GameEngine\Platform\OpenGL\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\GameEngine\Platform\Windows\Input\WindowsInput.h" />
     <ClInclude Include="src\GameEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\GameEngine\Utilities\KeyCodes.h" />
+    <ClInclude Include="src\GameEngine\Utilities\MGEngineKeyCodes.h" />
+    <ClInclude Include="src\GameEngine\Utilities\MGEngineMouseCodes.h" />
     <ClInclude Include="src\GameEngine\Utilities\MouseCodes.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
     <ClInclude Include="src\GenginePCH.h" />
@@ -184,6 +188,7 @@
     <ClCompile Include="src\GameEngine\Layers\LayersStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
     <ClCompile Include="src\GameEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\GameEngine\Platform\Windows\Input\WindowsInput.cpp" />
     <ClCompile Include="src\GameEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\GenginePCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

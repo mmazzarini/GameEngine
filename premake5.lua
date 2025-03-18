@@ -1,5 +1,6 @@
 workspace "MatteoGameEngine"
     architecture "x64"
+    startproject "Sandbox"
 
     configurations
     {
@@ -19,12 +20,15 @@ IncludeDir["Glad"] = "MatteoGameEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "MatteoGameEngine/vendor/imgui"
 -- "include" refers to the include path used to load the GLFW-premake5 file.  
 -- This will paste the whole glfw-premake5 and will copy the definition of the glfw project.
-include "MatteoGameEngine/vendor/GLFW"
-include "MatteoGameEngine/vendor/Glad"
-include "MatteoGameEngine/vendor/imgui"
+
+group "Depenencies"
+    include "MatteoGameEngine/vendor/GLFW"
+    include "MatteoGameEngine/vendor/Glad"
+    include "MatteoGameEngine/vendor/imgui"
+
 -- End GLFW Includes - and additional includes
 
-startproject "Sandbox"
+group ""
 
 project "MatteoGameEngine"
     location "MatteoGameEngine"
@@ -76,7 +80,7 @@ project "MatteoGameEngine"
 
         postbuildcommands
         {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
         }
 
     filter "configurations:Debug"
