@@ -23,6 +23,8 @@ namespace MGEngine {
 		unsigned int Id;
 		glad_glGenVertexArrays(1, &Id);
 
+		AppImGuiLayer = new ImGuiLayer();
+		PushOverlay(AppImGuiLayer);
 	}
 
 	Application::~Application()
@@ -90,12 +92,20 @@ namespace MGEngine {
 
 	void Application::PushLayer(Layer* InLayer)
 	{
-		LayerStack.PushLayer(InLayer);
+		if (InLayer != nullptr)
+		{
+			LayerStack.PushLayer(InLayer);
+			InLayer->OnAttach();
+		}
 	}
 
 	void Application::PushOverlay(Layer* InLayer)
 	{
-		LayerStack.PushOverlay(InLayer);
+		if (InLayer != nullptr)
+		{
+			LayerStack.PushOverlay(InLayer);
+			InLayer->OnAttach();
+		}
 	}
 
 	inline Window& Application::GetWindow()
@@ -115,6 +125,13 @@ namespace MGEngine {
 		{
 			layer->OnUpdate();
 		}
+
+		AppImGuiLayer->Begin();
+		for (Layer* layer : LayerStack)
+		{
+			layer->OnImGuiRender();
+		}
+		AppImGuiLayer->End();
 	}
 }
 

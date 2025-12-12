@@ -6,27 +6,26 @@ namespace MGEngine
 {
 	LayersStack::LayersStack()
 	{
-		LayersIt = Layers.begin();
+		LayerInsertIndex = 0;
 	}
 
 	LayersStack::~LayersStack()
 	{
 		for (Layer* layer : Layers)
 		{
-			delete layer;
+			delete layer;  
 		}
 	}
 
 	void LayersStack::PushLayer(Layer* InLayer)
 	{
-		LayersIt = Layers.emplace(LayersIt, InLayer);
-		InLayer->OnAttach();
+		Layers.emplace(Layers.begin() + LayerInsertIndex, InLayer);
+		LayerInsertIndex++;
 	}
 
 	void LayersStack::PushOverlay(Layer* InOverlay)
 	{
 		Layers.emplace_back(InOverlay);
-		InOverlay->OnAttach();
 	}
 
 	void LayersStack::PopLayer(Layer* InLayer)
@@ -34,8 +33,9 @@ namespace MGEngine
 		auto LIt = std::find(Layers.begin(), Layers.end(), InLayer);
 		if (LIt != Layers.end())
 		{
-			Layers.erase(LayersIt);
-			LayersIt--;
+			InLayer->OnDetach();
+			Layers.erase(LIt);
+			LayerInsertIndex--;
 		}
 	}
 	
@@ -44,6 +44,7 @@ namespace MGEngine
 		auto Oit = std::find(Layers.begin(), Layers.end(), InOverlay);
 		if (Oit != Layers.end())
 		{
+			InOverlay->OnDetach();
 			Layers.erase(Oit);
 		}
 	}

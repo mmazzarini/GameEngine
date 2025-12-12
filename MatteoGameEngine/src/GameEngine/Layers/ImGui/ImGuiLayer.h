@@ -6,6 +6,9 @@
 #include "GameEngine/Events/KeyEvent.h"
 #include "GameEngine/Events/ApplicationEvent.h"
 
+struct ImGuiIO;
+struct ImGuiWindow;
+
 namespace MGEngine
 {
 	class MATTEO_GENGINE_API ImGuiLayer : public Layer
@@ -17,25 +20,26 @@ namespace MGEngine
 
 		~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDetach() override;
-		void OnUpdate() override;
-		void OnEvent(Event& InEvent) override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
+		// * * * OLD * * * //
+		// virtual void OnUpdate() override;
+
+		void Begin();
+		void End();
+		//void OnEvent(Event& InEvent) override;
 
 	private:
 
-		bool OnMouseButtonPressed(MouseButtonPressedEvent& InEvent);
-		bool OnMouseButtonReleased(MouseButtonReleasedEvent& InEvent);
-		bool OnMouseScrolled(MouseScrolledEvent& InEvent);
-		bool OnMouseMoved(MouseMovedEvent& InEvent);
-		bool OnKeyPressed(KeyPressedEvent& InEvent);
-		bool OnKeyReleased(KeyReleasedEvent& InEvent);
-		bool OnKeyTyped(KeyTypedEvent& InEvent);
-		bool OnWindowResized(WindowResizeEvent& InEvent);
-
 		void ShutDown();
-		void ShutDownImplementations();
+		void ShutDownImplementation();
 
 		float InnerTime = 0.0f;
+
+		ImGuiIO* DEBUG_ImGui_Ptr;
+
+		ImGuiWindow* NewWiewport;
+
 	};
-}
+} 

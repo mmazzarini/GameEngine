@@ -3,6 +3,9 @@
 #include "GameEngine/Layers/ImGui/ImGuiLayer.h"
 
 #include "imgui.h"
+
+//#define IMGUI_IMPL_API
+
 #include "GameEngine/Platform/OpenGL/ImGuiOpenGLRenderer.h"
 #include "GameEngine/Layers/ImGui/GLFW/ImGuiGLFWImplementation.h"
 #include "GameEngine/Platform/Windows/WindowsWindow.h"
@@ -10,13 +13,28 @@
 #include "GameEngine/Log.h"
 
 //#MATTEO_TODO Temporary, remove this include in the future
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 // - - - - - - - - - - - - - - - - 
 
 #include "GameEngine/Application.h"
 
+/*
+The idea of an ImGui layer is to use ImGui functionalities to handle 
+events related to the User Interface
+We adopted ImGui framework and functionalities to give the user the base system 
+to handle UI.
+BUT: we need some reaction to events, otherwise the UI does not know how to work :)
+REMEMBER: we already have a system developed in this Engine that binds to Events.
+We have created a Events and a Event-handler system to react to the many 
+KeyPressed, KeyReleased, mouse button etc...
+So the idea is: we employ these to handle user interface by means of our Events system.
+You press a key -> the ImGui layer reacts to this key pressure with the proper event handler (OnEvent()). And so on.
+*/
+
 namespace MGEngine {
+	
 
 	ImGuiLayer::ImGuiLayer()
 		:Layer("ImGuiLayer")
@@ -30,162 +48,85 @@ namespace MGEngine {
 
 	void ImGuiLayer::OnAttach()
 	{
+		std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		Io.BackendFlags != ImGuiBackendFlags_HasSetMousePos;
+		ImGuiIO& io = ImGui::GetIO();
+		DEBUG_ImGui_Ptr = &io;
+		// Setup Dear ImGui context
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 
-		//initialize opengl3 version
+		//InnerIo.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+		io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
+		io.BackendFlags |= ImGuiBackendFlags_RendererHasViewports; //we need this for renderer correctly showiung docked viewports
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+ 		ImGuiStyle& style = ImGui::GetStyle();
+
+		Application& app = Application::GetApplication();
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+
+		//Setup platform renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
+		ShutDown();
 	}
 
-	void ImGuiLayer::OnUpdate()
+	void ImGuiLayer::OnImGuiRender()
 	{
-		//Setup IO
-		ImGuiIO& Io = ImGui::GetIO();
-		Application& App = Application::GetApplication();
-		Window& AppWindow = App.GetWindow();
-		Io.DisplaySize = ImVec2(AppWindow.GetWidth(), AppWindow.GetHeight());
+		static bool bShow = true;
+		ImGui::ShowDemoWindow(&bShow);
+	}
 
-		//Update times
-		float PreviousTime = 0.f;
-		float CurrentTime = static_cast<float>(glfwGetTime());
-		Io.DeltaTime = InnerTime > 0.0f ? (CurrentTime - InnerTime) : (1.0f / 60.0f);
-		InnerTime = CurrentTime;
-
-		//New frame
+	void ImGuiLayer::Begin()
+	{
 		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+	}
 
-		//Demo Window
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
-		//We render here
+	void ImGuiLayer::End()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		Application& app = Application::GetApplication();
+		Window& window = app.GetWindow();
+		io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
 		ImGui::Render();
-	
-		//Draw data
 		ImDrawData* DrawData = ImGui::GetDrawData();
-		ImGui_ImplOpenGL3_RenderDrawData(DrawData);		
-	}
-
-	void ImGuiLayer::OnEvent(Event& InEvent)
-	{
-		EventDispatcher EvDispatcher(InEvent);
-		//#MATTEO_TODO Define macro for binding event functions pls!!
-		EvDispatcher.Dispatch<MouseButtonPressedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnMouseButtonPressed));
-		EvDispatcher.Dispatch<MouseButtonReleasedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnMouseButtonReleased));
-		EvDispatcher.Dispatch<MouseScrolledEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnMouseScrolled));
-		EvDispatcher.Dispatch<MouseMovedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnMouseMoved));
-		EvDispatcher.Dispatch<KeyPressedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnKeyPressed));
-		EvDispatcher.Dispatch<KeyReleasedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnKeyReleased));
-		EvDispatcher.Dispatch<KeyTypedEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnKeyTyped));
-		EvDispatcher.Dispatch<WindowResizeEvent>(MGENGINE_BIND_FN(ImGuiLayer::OnWindowResized));
-	}
-
-	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		if (InEvent.GetKeyCode() >= 0 && InEvent.GetKeyCode() < ImGuiMouseButton_COUNT)
+		ImGui_ImplOpenGL3_RenderDrawData(DrawData);
+	
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			Io.AddMouseButtonEvent(InEvent.GetKeyCode(), true);
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
 		}
-		MGENGINE_CORE_INFO("ImGuiLayer: called Mouse button pressed event with key: {0}", static_cast<unsigned short>(InEvent.GetKeyCode()));
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseButtonReleased(MouseButtonReleasedEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		if (InEvent.GetKeyCode() >= 0 && InEvent.GetKeyCode() < ImGuiMouseButton_COUNT)
-		{
-			Io.AddMouseButtonEvent(InEvent.GetKeyCode(), false);
-		}
-		MGENGINE_CORE_INFO("ImGuiLayer: called Mouse button released event with key: {0}", static_cast<unsigned short>(InEvent.GetKeyCode()));
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseScrolled(MouseScrolledEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.AddMouseWheelEvent(static_cast<float>(InEvent.GetXOffset()), static_cast<float>(InEvent.GetYOffset()));
-		MGENGINE_CORE_INFO("ImGuiLayer: called Mouse button scrolled event: {0}", InEvent.ToString());
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseMoved(MouseMovedEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.AddMousePosEvent(static_cast<float>(InEvent.GetX()), static_cast<float>(InEvent.GetY()));
-		MGENGINE_CORE_INFO("ImGuiLayer: called Mouse button moved event: {0}", InEvent.ToString());
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyPressed(KeyPressedEvent& InEvent)
-	{
-
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.AddKeyEvent(ImGui_ImplGlfw_KeyToImGuiKey(InEvent.GetKeyCode(), 0), true);
-		MGENGINE_CORE_INFO("ImGuiLayer: called key pressed event on: {0}!", static_cast<unsigned short>(InEvent.GetKeyCode()));
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyReleased(KeyReleasedEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.AddKeyEvent(ImGui_ImplGlfw_KeyToImGuiKey(InEvent.GetKeyCode(), 0), false);
-		MGENGINE_CORE_INFO("ImGuiLayer: called key released event on: {0}!", static_cast<unsigned short>(InEvent.GetKeyCode()));
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyTyped(KeyTypedEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		int KeyCode = InEvent.GetKeyCode();
-		if (KeyCode > 0 && KeyCode < 0x10000)
-		{
-			//Io.AddInputCharacter(static_cast<unsigned short>(KeyCode));
-			char Char[2] = { static_cast<char>(KeyCode), 0 };
-			Io.AddInputCharactersUTF8(Char);
-		}
-		MGENGINE_CORE_INFO("ImGuiLayer: called key typed event on: {0}!", static_cast<unsigned short>(InEvent.GetKeyCode()));
-
-		return false;                                                                                                                                         
-	}
-
-	bool ImGuiLayer::OnWindowResized(WindowResizeEvent& InEvent)
-	{
-		ImGuiIO& Io = ImGui::GetIO();
-		Io.DisplaySize = ImVec2(InEvent.GetWidth(), InEvent.GetHeight());
-		Io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-		glViewport(0, 0, InEvent.GetWidth(), InEvent.GetHeight());
-		MGENGINE_CORE_INFO("ImGuiLayer: called Window resize event: {0} ", InEvent.ToString());
-		return false;
 	}
 
 	void ImGuiLayer::ShutDown()
 	{
-		ShutDownImplementations();
+		ShutDownImplementation();
 		ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::ShutDownImplementations()
+	void ImGuiLayer::ShutDownImplementation()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 	}
 }
-
-// #TODO: We almost did everything. 
-// We need to map gflw keys to imgui keys in a proper way

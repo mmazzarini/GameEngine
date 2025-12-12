@@ -415,7 +415,7 @@ void    ImGui_ImplOpenGL3_Shutdown()
     IM_DELETE(bd);
 }
 
-void    ImGui_ImplOpenGL3_NewFrame()
+void ImGui_ImplOpenGL3_NewFrame()
 {
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized! Did you call ImGui_ImplOpenGL3_Init()?");

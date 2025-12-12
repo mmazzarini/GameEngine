@@ -25,6 +25,6 @@ namespace MGEngine
 	private:
 
 		std::vector<Layer*> Layers;
-		std::vector<Layer*>::iterator LayersIt;
+		unsigned int LayerInsertIndex;
 	};
 }

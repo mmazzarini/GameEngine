@@ -18,6 +18,8 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "MatteoGameEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "MatteoGameEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "MatteoGameEngine/vendor/imgui"
+IncludeDir["glm"] = "MatteoGameEngine/vendor/glm"
+
 -- "include" refers to the include path used to load the GLFW-premake5 file.  
 -- This will paste the whole glfw-premake5 and will copy the definition of the glfw project.
 
@@ -44,7 +46,9 @@ project "MatteoGameEngine"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs 
@@ -54,7 +58,8 @@ project "MatteoGameEngine"
         -- Adding glfw includes - and additional includes
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     -- Adding links for GLFW usage
@@ -115,7 +120,8 @@ project "Sandbox"
     includedirs
     {
         "MatteoGameEngine/vendor/spdlog/include",
-        "MatteoGameEngine/src"
+        "MatteoGameEngine/src",
+        "%{IncludeDir.glm}"
     }
     
     links
